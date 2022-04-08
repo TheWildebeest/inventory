@@ -9,19 +9,7 @@ export interface InventoryItem {
 }
 
 export interface Device extends InventoryItem {
-  id: string;
-}
-
-export interface EmployeeDeviceLink {
-  deviceId: Device['id'];
-  employeeId: Employee['id'];
-  permissions: EmployeePermissions;
-}
-
-export enum EmployeePermissions {
-  RESTRICTED,
-  STANDARD,
-  ADMINISTRATOR
+  id: number;
 }
 
 export enum DeviceTypes {

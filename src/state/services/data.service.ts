@@ -24,7 +24,7 @@ export class DataService {
     return [
       {
         "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": "1",
+        "id": 1,
         "image": "https://picsum.photos/id/0/512",
         "sku": "1",
         "type": 0,
@@ -32,7 +32,7 @@ export class DataService {
       },
       {
         "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": "2",
+        "id": 2,
         "image": "https://picsum.photos/id/180/512",
         "sku": "1",
         "type": 0,
@@ -40,7 +40,7 @@ export class DataService {
       },
       {
         "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": "3",
+        "id": 3,
         "image": "https://picsum.photos/id/2/512",
         "sku": "1",
         "type": 0,
@@ -48,31 +48,31 @@ export class DataService {
       },
       {
         "description": "2014 iPhone, 20GB storage, 310 pixel screen",
-        "id": "4",
+        "id": 4,
         "image": "https://picsum.photos/id/20/512",
         "sku": "2",
-        "type": 0,
+        "type": 2,
         "name": "iPhone"
       },
       {
         "description": "Original Kindle with 256 GB storage",
-        "id": "5",
+        "id": 5,
         "image": "https://picsum.photos/id/367/512",
         "sku": "3",
-        "type": 0,
+        "type": 1,
         "name": "Kindle"
       },
       {
         "description": "2018 Apple keyboard and mouse set, compatible with all Apple devices",
-        "id": "6",
+        "id": 6,
         "image": "https://picsum.photos/id/366/512",
         "sku": "4",
-        "type": 0,
+        "type": 3,
         "name": "Apple keyboard and mouse"
       },
       {
         "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": "7",
+        "id": 7,
         "image": "https://picsum.photos/id/0/512",
         "sku": "1",
         "type": 0,
@@ -88,70 +88,70 @@ export class DataService {
         "id": "1",
         "name": "Amy Zhou",
         "image": "assets/img/amy-zhou.jpg",
-        "deviceLinks": []
+        "deviceLinks": [1, 6]
       },
       {
         "emailAddress": "damien.white@flamingo-finance.com",
         "id": "2",
         "name": "Damien White",
         "image": "assets/img/damien-white.jpg",
-        "deviceLinks": []
+        "deviceLinks": [2, 6]
       },
       {
         "emailAddress": "mark.sayle@flamingo-finance.com",
         "id": "3",
         "name": "Mark Sayle",
         "image": "assets/img/mark-sayle.jpg",
-        "deviceLinks": []
+        "deviceLinks": [3, 6]
       },
       {
         "emailAddress": "svetlana.novoselova@flamingo-finance.com",
         "id": "4",
         "name": "Svetlana Novoselova",
         "image": "assets/img/svetlana-novoselova.jpg",
-        "deviceLinks": []
+        "deviceLinks": [7, 6]
       },
       {
         "emailAddress": "charles.roland@flamingo-finance.com",
         "id": "5",
         "name": "Charles Roland",
         "image": "assets/img/charles-roland.jpg",
-        "deviceLinks": []
+        "deviceLinks": [1, 6, 5]
       },
       {
         "emailAddress": "mary.edwards@flamingo-finance.com",
         "id": "6",
         "name": "Mary Edwards",
         "image": "assets/img/mary-edwards.jpg",
-        "deviceLinks": []
+        "deviceLinks": [2, 6]
       },
       {
         "emailAddress": "eric.matthews@flamingo-finance.com",
         "id": "7",
         "name": "Eric Matthews",
         "image": "assets/img/eric-matthews.jpg",
-        "deviceLinks": []
+        "deviceLinks": [3, 6]
       },
       {
         "emailAddress": "kirsten.joyce@flamingo-finance.com",
         "id": "8",
         "name": "Kirsten Joyce",
         "image": "assets/img/kirsten-joyce.jpg",
-        "deviceLinks": []
+        "deviceLinks": [1, 4, 6]
       },
       {
         "emailAddress": "rihanna.mclaren@flamingo-finance.com",
         "id": "9",
         "name": "Rihanna McLaren",
         "image": "assets/img/rihanna-mclaren.jpg",
-        "deviceLinks": []
+        "deviceLinks": [2, 4, 6]
       },
       {
         "emailAddress": "james.pickering@flamingo-finance.com",
         "id": "10",
         "name": "James Pickering",
         "image": "assets/img/james-pickering.jpg",
-        "deviceLinks": []
+        "deviceLinks": [3, 4, 6]
       }
     ]
   }

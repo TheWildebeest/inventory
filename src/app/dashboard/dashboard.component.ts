@@ -100,7 +100,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'Employees: ', this.employees
     )
     this.childComponent.devices = this.devices;
-    this.childComponent.employees = this.employees;
+    this.childComponent.employees = this.employees
+      .map(e => { return {...e, editing: false}});
 
   }
 
