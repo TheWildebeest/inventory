@@ -1,0 +1,16 @@
+<ng-container
+  *ngIf="employees === null || !employees[0]">
+  <mat-spinner
+    color="primary"
+    mode="indeterminate">
+  </mat-spinner>
+</ng-container>
+<ng-container
+  *ngIf="employees && employees[0]">
+  <ng-container *ngFor="let employee of employees">
+    <mat-card class="card employee-card">
+      <img mat-card-image [attr.src]="employee.image" [attr.alt]="'Picture of ' + employee.name">
+      <mat-card-title>{{ employee.name }}</mat-card-title>
+    </mat-card>
+  </ng-container>
+</ng-container>

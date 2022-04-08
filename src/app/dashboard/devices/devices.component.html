@@ -1,0 +1,19 @@
+<ng-container
+  *ngIf="devices === null || !devices[0]">
+  <mat-spinner
+    color="primary"
+    mode="indeterminate">
+  </mat-spinner>
+</ng-container>
+<ng-container
+  *ngIf="devices && devices[0]">
+  <ng-container *ngFor="let device of devices">
+    <mat-card class="card device-card">
+      <mat-card-header>
+        <mat-card-title>{{ device.name }}</mat-card-title>
+        <mat-card-subtitle>{{ device.description }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [attr.src]="device.image" [attr.alt]="'Picture of ' + device.name">
+    </mat-card>
+  </ng-container>
+</ng-container>
