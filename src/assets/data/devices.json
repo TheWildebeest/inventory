@@ -1,0 +1,59 @@
+
+[
+  {
+    "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
+    "id": 1,
+    "image": "https://picsum.photos/id/0/512",
+    "sku": "1",
+    "type": 0,
+    "name": "MacBook Air Space Grey 13-inch"
+  },
+  {
+    "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
+    "id": 2,
+    "image": "https://picsum.photos/id/180/512",
+    "sku": "1",
+    "type": 0,
+    "name": "MacBook Air Space Grey 13-inch"
+  },
+  {
+    "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
+    "id": 3,
+    "image": "https://picsum.photos/id/2/512",
+    "sku": "1",
+    "type": 0,
+    "name": "MacBook Air Space Grey 13-inch"
+  },
+  {
+    "description": "2014 iPhone, 20GB storage, 310 pixel screen",
+    "id": 4,
+    "image": "https://picsum.photos/id/20/512",
+    "sku": "2",
+    "type": 2,
+    "name": "iPhone"
+  },
+  {
+    "description": "Original Kindle with 256 GB storage",
+    "id": 5,
+    "image": "https://picsum.photos/id/367/512",
+    "sku": "3",
+    "type": 1,
+    "name": "Kindle"
+  },
+  {
+    "description": "2018 Apple keyboard and mouse set, compatible with all Apple devices",
+    "id": 6,
+    "image": "https://picsum.photos/id/366/512",
+    "sku": "4",
+    "type": 3,
+    "name": "Apple keyboard and mouse"
+  },
+  {
+    "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
+    "id": 7,
+    "image": "https://picsum.photos/id/0/512",
+    "sku": "1",
+    "type": 0,
+    "name": "MacBook Air Space Grey 13-inch"
+  }
+]

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { delay, Observable, of } from "rxjs";
+import { delay, filter, map, Observable, of } from "rxjs";
 import { Device, Employee } from "@models";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -8,151 +9,60 @@ import { Device, Employee } from "@models";
 export class DataService {
 
 
+  constructor(
+    private http: HttpClient
+  ) { }
+
   public getDevices(): Observable<Device[]> {
-    return of(this._getDevices()).pipe(delay(Math.random() * 1000 + 1400))
+    return this.http.get<Device[]>('/assets/data/devices.json')
+    .pipe(delay(Math.random() * 1000 + 1400))
   }
 
       
   public getEmployees(): Observable<Employee[]> {
-    return of(this._getEmployees()).pipe(
-      delay(Math.random() * 1000 + 1400)
+    return this.http.get<Employee[]>('/assets/data/employees.json')
+      .pipe(delay(Math.random() * 1000 + 1400))
+  }
+
+  public updateIndividualEmployee(updatedEmployeeData: Partial<Employee>, allEmployees: Employee[]|null): Observable<{ data: Employee|null} > {
+    console.log('dataService: updateIndividualEmployee');
+    return of(true).pipe(
+      delay(Math.random() * 700 + 1400),
+      map(() => {
+        console.log('delay successful');
+        const originalEmployee = allEmployees?.find((e => e.id === updatedEmployeeData.id))
+        if (originalEmployee) {
+          const updatedEmployee: Employee = {
+            ...originalEmployee,
+            ...updatedEmployeeData
+          };
+          return { data: updatedEmployee }
+        } else {
+          return { data: null }
+        }
+      })
     )
   }
 
+    public updateIndividualDevice(updatedDeviceData: Partial<Device>, allDevices: Device[]|null): Observable<{ data: Device|null} > {
 
-  private _getDevices(): Device[] {
-    return [
-      {
-        "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": 1,
-        "image": "https://picsum.photos/id/0/512",
-        "sku": "1",
-        "type": 0,
-        "name": "MacBook Air Space Grey 13-inch"
-      },
-      {
-        "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": 2,
-        "image": "https://picsum.photos/id/180/512",
-        "sku": "1",
-        "type": 0,
-        "name": "MacBook Air Space Grey 13-inch"
-      },
-      {
-        "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": 3,
-        "image": "https://picsum.photos/id/2/512",
-        "sku": "1",
-        "type": 0,
-        "name": "MacBook Air Space Grey 13-inch"
-      },
-      {
-        "description": "2014 iPhone, 20GB storage, 310 pixel screen",
-        "id": 4,
-        "image": "https://picsum.photos/id/20/512",
-        "sku": "2",
-        "type": 2,
-        "name": "iPhone"
-      },
-      {
-        "description": "Original Kindle with 256 GB storage",
-        "id": 5,
-        "image": "https://picsum.photos/id/367/512",
-        "sku": "3",
-        "type": 1,
-        "name": "Kindle"
-      },
-      {
-        "description": "2018 Apple keyboard and mouse set, compatible with all Apple devices",
-        "id": 6,
-        "image": "https://picsum.photos/id/366/512",
-        "sku": "4",
-        "type": 3,
-        "name": "Apple keyboard and mouse"
-      },
-      {
-        "description": "13 inch MacBook Air, Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 256GB Storage, 16‑core Neural Engine",
-        "id": 7,
-        "image": "https://picsum.photos/id/0/512",
-        "sku": "1",
-        "type": 0,
-        "name": "MacBook Air Space Grey 13-inch"
-      }
-    ]
+    return of(true).pipe(
+      delay(Math.random() * 700 + 1400),
+      map(() => {
+        console.log('delay successful');
+        const originalDevice = allDevices?.find((e => e.id === updatedDeviceData.id))
+        if (originalDevice) {
+          const updatedDevice: Device = {
+            ...originalDevice,
+            ...updatedDeviceData
+          };
+          return { data: updatedDevice }
+        } else {
+          return { data: null }
+        }
+      })
+    )
   }
 
-  private _getEmployees(): Employee[] {
-    return [
-      {
-        "emailAddress": "amy.zhou@flamingo-finance.com",
-        "id": "1",
-        "name": "Amy Zhou",
-        "image": "assets/img/amy-zhou.jpg",
-        "deviceLinks": [1, 6]
-      },
-      {
-        "emailAddress": "damien.white@flamingo-finance.com",
-        "id": "2",
-        "name": "Damien White",
-        "image": "assets/img/damien-white.jpg",
-        "deviceLinks": [2, 6]
-      },
-      {
-        "emailAddress": "mark.sayle@flamingo-finance.com",
-        "id": "3",
-        "name": "Mark Sayle",
-        "image": "assets/img/mark-sayle.jpg",
-        "deviceLinks": [3, 6]
-      },
-      {
-        "emailAddress": "svetlana.novoselova@flamingo-finance.com",
-        "id": "4",
-        "name": "Svetlana Novoselova",
-        "image": "assets/img/svetlana-novoselova.jpg",
-        "deviceLinks": [7, 6]
-      },
-      {
-        "emailAddress": "charles.roland@flamingo-finance.com",
-        "id": "5",
-        "name": "Charles Roland",
-        "image": "assets/img/charles-roland.jpg",
-        "deviceLinks": [1, 6, 5]
-      },
-      {
-        "emailAddress": "mary.edwards@flamingo-finance.com",
-        "id": "6",
-        "name": "Mary Edwards",
-        "image": "assets/img/mary-edwards.jpg",
-        "deviceLinks": [2, 6]
-      },
-      {
-        "emailAddress": "eric.matthews@flamingo-finance.com",
-        "id": "7",
-        "name": "Eric Matthews",
-        "image": "assets/img/eric-matthews.jpg",
-        "deviceLinks": [3, 6]
-      },
-      {
-        "emailAddress": "kirsten.joyce@flamingo-finance.com",
-        "id": "8",
-        "name": "Kirsten Joyce",
-        "image": "assets/img/kirsten-joyce.jpg",
-        "deviceLinks": [1, 4, 6]
-      },
-      {
-        "emailAddress": "rihanna.mclaren@flamingo-finance.com",
-        "id": "9",
-        "name": "Rihanna McLaren",
-        "image": "assets/img/rihanna-mclaren.jpg",
-        "deviceLinks": [2, 4, 6]
-      },
-      {
-        "emailAddress": "james.pickering@flamingo-finance.com",
-        "id": "10",
-        "name": "James Pickering",
-        "image": "assets/img/james-pickering.jpg",
-        "deviceLinks": [3, 4, 6]
-      }
-    ]
-  }
 }
+
