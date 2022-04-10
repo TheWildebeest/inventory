@@ -9,7 +9,7 @@ import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 // Custom
 import { DeviceEmployeeLink } from '@models';
 import { DataService } from '@services';
-import { AddNewDeviceEmployeeLinkAction, addNewDeviceEmployeeLinkFail, addNewDeviceEmployeeLinkSuccess, ADD_NEW_DEVICE_EMPLOYEE_LINK, LoadDeviceEmployeeLinksAction, loadDeviceEmployeeLinksFail, loadDeviceEmployeeLinksSuccess, LOAD_DEVICE_EMPLOYEE_LINKS } from '@actions';
+import { AddNewDeviceEmployeeLinkAction, addNewDeviceEmployeeLinkFail, addNewDeviceEmployeeLinkSuccess, ADD_NEW_DEVICE_EMPLOYEE_LINK, LoadDeviceEmployeeLinksAction, loadDeviceEmployeeLinksFail, loadDeviceEmployeeLinksSuccess, LOAD_DEVICE_EMPLOYEE_LINKS, RemoveDeviceEmployeeLinkAction, removeDeviceEmployeeLinkFail, removeDeviceEmployeeLinkSuccess, REMOVE_DEVICE_EMPLOYEE_LINK } from '@actions';
 
 @Injectable()
 export class DeviceEmployeeLinksEffects {
@@ -47,6 +47,27 @@ export class DeviceEmployeeLinksEffects {
             }),
             catchError(() => {
               return of(addNewDeviceEmployeeLinkFail());
+            })
+          );
+      })
+    );
+  });
+
+  removeDeviceEmployeeLink$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(REMOVE_DEVICE_EMPLOYEE_LINK),
+      mergeMap((action: RemoveDeviceEmployeeLinkAction) => {
+        return this.dataService.removeDeviceEmployeeLink(action.data)
+          .pipe(
+            map((response: { data: { deleted: boolean } }) => {
+              if (response.data.deleted) {
+                return removeDeviceEmployeeLinkSuccess({ data: action.data });
+              } else {
+              return removeDeviceEmployeeLinkFail();
+              }
+            }),
+            catchError(() => {
+              return of(removeDeviceEmployeeLinkFail());
             })
           );
       })

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadDeviceEmployeeLinks, loadDeviceEmployeeLinksSuccess, loadDeviceEmployeeLinksFail, clearDeviceEmployeeLinks, addNewDeviceEmployeeLink, addNewDeviceEmployeeLinkSuccess, addNewDeviceEmployeeLinkFail } from '@actions';
+import { loadDeviceEmployeeLinks, loadDeviceEmployeeLinksSuccess, loadDeviceEmployeeLinksFail, clearDeviceEmployeeLinks, addNewDeviceEmployeeLink, addNewDeviceEmployeeLinkSuccess, addNewDeviceEmployeeLinkFail, removeDeviceEmployeeLink, removeDeviceEmployeeLinkSuccess, removeDeviceEmployeeLinkFail } from '@actions';
 import { Device, DeviceEmployeeLinksState, Employee, DeviceEmployeeLink } from '@models';
 
 export const initialState: DeviceEmployeeLinksState = {
@@ -10,11 +10,11 @@ export const initialState: DeviceEmployeeLinksState = {
 
 export const deviceEmployeeLinksReducer = createReducer(
   initialState,
-  on(loadDeviceEmployeeLinks, (_state: DeviceEmployeeLinksState): DeviceEmployeeLinksState => {
+  on(loadDeviceEmployeeLinks, (state: DeviceEmployeeLinksState): DeviceEmployeeLinksState => {
     const newState = {
       loading: true,
       loaded: false,
-      data: null
+      data: state.data ? [ ...state.data ] : null
     };
     return newState;
   }),
@@ -61,6 +61,32 @@ export const deviceEmployeeLinksReducer = createReducer(
       loading: false,
       loaded: true,
       data: state.data,
+    };
+    return newState;
+  }),
+  on(removeDeviceEmployeeLink, (state: DeviceEmployeeLinksState, _props: { data: DeviceEmployeeLink['id'] }): DeviceEmployeeLinksState => {
+    const newState = {
+      loading: true,
+      loaded: false,
+      data: state.data ? [ ...state.data ]: null,
+    };
+    return newState;
+  }),
+  on(removeDeviceEmployeeLinkSuccess, (state: DeviceEmployeeLinksState, props: { data: DeviceEmployeeLink['id'] }): DeviceEmployeeLinksState => {
+    console.log('reducer called.');
+    const data = state!.data!.filter((link: DeviceEmployeeLink) => link.id !== props.data);
+    const newState = {
+      loading: false,
+      loaded: true,
+      data: data
+    };
+    return newState;
+  }),
+  on(removeDeviceEmployeeLinkFail, (state: DeviceEmployeeLinksState): DeviceEmployeeLinksState => {
+    const newState = {
+      loading: false,
+      loaded: true,
+      data: state.data ? [ ...state.data ] : null,
     };
     return newState;
   }),

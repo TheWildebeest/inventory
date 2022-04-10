@@ -82,5 +82,16 @@ export class DataService {
     );
   }
 
+  public removeDeviceEmployeeLink(linkId: DeviceEmployeeLink['id']): Observable<{ data: {deleted: boolean } }> {
+    console.log('Deleting Device-Employee Link with ID #', linkId);
+
+    return of(true).pipe(
+      delay(Math.random() * 700 + 1400),
+      map(() => {
+        return { data: { deleted: true } };
+      })
+    );
+  }
+
 }
 
