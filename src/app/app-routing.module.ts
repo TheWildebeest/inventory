@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
   },
   {
     path: '**',
