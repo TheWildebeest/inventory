@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 // Third party libraries
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 // Custom
 import { DeviceEmployeeLink } from '@models';
 import { DataService } from '@services';
-import { LoadDeviceEmployeeLinksAction, loadDeviceEmployeeLinksFail, loadDeviceEmployeeLinksSuccess, LOAD_DEVICE_EMPLOYEE_LINKS } from '@actions';
+import { AddNewDeviceEmployeeLinkAction, addNewDeviceEmployeeLinkFail, addNewDeviceEmployeeLinkSuccess, ADD_NEW_DEVICE_EMPLOYEE_LINK, LoadDeviceEmployeeLinksAction, loadDeviceEmployeeLinksFail, loadDeviceEmployeeLinksSuccess, LOAD_DEVICE_EMPLOYEE_LINKS } from '@actions';
 
 @Injectable()
 export class DeviceEmployeeLinksEffects {
@@ -30,6 +30,23 @@ export class DeviceEmployeeLinksEffects {
             }),
             catchError(() => {
               return of(loadDeviceEmployeeLinksFail());
+            })
+          );
+      })
+    );
+  });
+
+  addDeviceEmployeeLink$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ADD_NEW_DEVICE_EMPLOYEE_LINK),
+      mergeMap((action: AddNewDeviceEmployeeLinkAction) => {
+        return this.dataService.addNewDeviceEmployeeLink(action.data)
+          .pipe(
+            map((response: { data: DeviceEmployeeLink }) => {
+              return addNewDeviceEmployeeLinkSuccess({ data: response.data });
+            }),
+            catchError(() => {
+              return of(addNewDeviceEmployeeLinkFail());
             })
           );
       })

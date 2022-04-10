@@ -31,7 +31,7 @@ export class DevicesEffects {
             catchError(() => {
               return of(loadDevicesFail());
             })
-          )
+          );
       })
     );
   });

@@ -1,6 +1,6 @@
 
 <mat-card class="card employee-card">
-  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <form *ngIf="formGroup && employeeDeviceList" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <img mat-card-image [attr.src]="employee.image" [attr.alt]="'Picture of ' + employee.name">
     <mat-form-field class="form-field" appearance="outline">
       <input matInput formControlName="name" required>
@@ -18,25 +18,18 @@
       </mat-form-field>
     </mat-card-subtitle>
     <mat-card-content>
+      <h3>Linked devices:</h3>
       <mat-form-field class="form-field" appearance="outline">
-        <mat-label>Linked devices:</mat-label>
         <mat-select formControlName="linkedDevices" multiple>
           <mat-option
-            *ngFor="let device of employee.linkedDevices"
+            *ngFor="let device of employeeDeviceList"
             [value]="device.id">
             {{ device.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      {{ formGroup.value | json }}
-
-      <!-- <h3>Linked devices:</h3>
-      <ul>
-        <li *ngFor="let device of linkedDevices">
-          Device #{{device.id}} — {{device.name}}
-        </li>
-      </ul> -->
+      <!-- {{ formGroup.value | json }} -->
       <mat-select></mat-select>
     </mat-card-content>
     <mat-divider inset></mat-divider>
@@ -45,7 +38,7 @@
     </mat-card-actions>
   </form>
 
-  <ng-container *ngIf="!formGroup">
+  <ng-container *ngIf="!formGroup || !employeeDeviceList">
     <img mat-card-image [attr.src]="employee.image" [attr.alt]="'Picture of ' + employee.name">
     <mat-card-title>
       <span >{{ employee.name }}</span>
@@ -55,7 +48,7 @@
       <mat-card-content>
         <h3>Linked devices:</h3>
         <ul>
-          <ng-container *ngFor="let device of employee.linkedDevices">
+          <ng-container *ngFor="let device of employeeDeviceList">
             <li *ngIf="device.linked">
               Device #{{device.id}} — {{device.name}}
             </li>

@@ -2,6 +2,7 @@ import { Device } from "./_device.model";
 import { Employee } from "./_employee.model";
 
 export interface DeviceEmployeeLink {
+  id: number;
   employeeId: Employee['id'];
   deviceId: Device['id'];
 }

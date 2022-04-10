@@ -1,14 +1,26 @@
 <ng-container
-  *ngIf="employees === null || !employees[0]">
+  *ngIf="
+    employees === null || !employees[0] ||
+    !devices || !devices[0] ||
+    !deviceEmployeeLinks || !deviceEmployeeLinks[0]
+  ">
   <mat-spinner
     color="primary"
     mode="indeterminate">
   </mat-spinner>
 </ng-container>
-<ng-container *ngIf="employees && employees[0]">
+<ng-container
+  *ngIf="
+    employees && employees[0] &&
+    devices && devices[0] &&
+    deviceEmployeeLinks
+  ">
   <app-employee-card
-    *ngFor="let employee of employeeCards"
+    *ngFor="let employee of employees"
     [employee]="employee"
-    (employeeChanged)="onEmployeeChanged($event)">
+    [devices]="devices"
+    [linkedDeviceIds]="getLinkedDeviceIds(employee.id)"
+    (employeeChanged)="onEmployeeChanged($event)"
+    (linkedDevicesChanged)="onLinkedDevicesChanged($event)">
   </app-employee-card>
 </ng-container>

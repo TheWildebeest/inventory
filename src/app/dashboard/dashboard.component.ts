@@ -109,11 +109,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private _passPropsToChildren(): void {
     if (this.childComponent === null) { return; };
     if (!this.devices || !this.employees) { return; };
-    console.log(
-      '\nDevices: ', this.devices,
-      '\nEmployees: ', this.employees,
-      '\nDevice-Employee Links: ', this.deviceEmployeeLinks, '\n\n\n'
-    );
+    // console.log(
+    //   '\nDevices: ', this.devices,
+    //   '\nEmployees: ', this.employees,
+    //   '\nDevice-Employee Links: ', this.deviceEmployeeLinks, '\n\n\n'
+    // );
     this.childComponent.devices = this.devices;
     this.childComponent.employees = this.employees;
     this.childComponent.deviceEmployeeLinks = this.deviceEmployeeLinks;

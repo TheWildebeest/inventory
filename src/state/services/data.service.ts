@@ -9,6 +9,8 @@ import { DeviceEmployeeLink } from "@models/_device-employee-link.model";
 })
 export class DataService {
 
+  private _idCount = 11;
+
 
   constructor(
     private http: HttpClient
@@ -68,12 +70,14 @@ export class DataService {
     );
   }
 
-  public updateIndividualDeviceEmployeeLink(updatedDeviceEmployeeLinkData: DeviceEmployeeLink): Observable<{ data: DeviceEmployeeLink }> {
+  public addNewDeviceEmployeeLink(newLinkData: { employeeId: Employee['id'], deviceId: Device['id'] }): Observable<{ data: DeviceEmployeeLink }> {
 
+    const id = this._idCount;
+    this._idCount ++;
     return of(true).pipe(
       delay(Math.random() * 700 + 1400),
       map(() => {
-        return { data: updatedDeviceEmployeeLinkData };
+        return { data: { ...newLinkData, id } };
       })
     );
   }

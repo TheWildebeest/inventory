@@ -1,5 +1,3 @@
-import { Employee } from "./_employee.model"
-
 export interface InventoryItem {
   sku: string;
   type: DeviceTypes;

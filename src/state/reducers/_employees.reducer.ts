@@ -50,7 +50,7 @@ export const employeesReducer = createReducer(
           return props.data;
         }
         return e;
-      })
+      });
     const newState = {
       loading: false,
       loaded: true,

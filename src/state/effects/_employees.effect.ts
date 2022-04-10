@@ -34,7 +34,7 @@ export class EmployeesEffects {
             catchError(() => {
               return of(loadEmployeesFail());
             })
-          )
+          );
       })
     );
   });
@@ -56,7 +56,7 @@ export class EmployeesEffects {
             catchError(() => {
               return of(updateIndividualEmployeeFail());
             })
-          )
+          );
       })
     );
   });

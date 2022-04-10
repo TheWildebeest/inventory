@@ -1,18 +1,23 @@
 
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Device, Employee, EmployeeWithDevices, LinkedDevice } from '@models';
+import { Device, Employee, LinkedDevice } from '@models';
 
 @Component({
   selector: 'app-employee-card',
   templateUrl: './employee-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeeCardComponent {
+export class EmployeeCardComponent implements OnInit {
 
-  @Input() employee!: EmployeeWithDevices;
+  @Input() employee!: Employee;
+  @Input() linkedDeviceIds!: Device['id'][];
+  @Input() devices!: Device[];
+
   @Output() employeeChanged: EventEmitter<Partial<Employee>> = new EventEmitter();
+  @Output() linkedDevicesChanged: EventEmitter<{ employeeId: Employee['id'], linkedDeviceIds: Device['id'][] }> = new EventEmitter();
 
+  public employeeDeviceList: LinkedDevice[]|null = null;
   public formGroup: FormGroup|null = null;
   public employeeDevices: Device[]|null = null;
   public processing = false;
@@ -20,6 +25,10 @@ export class EmployeeCardComponent {
   constructor(
     private fb: FormBuilder
   ) { }
+
+  ngOnInit(): void {
+    this._buildEmployeeDeviceList();
+  }
 
   /**
    * Controls the editing state and whether to build or destroy the form
@@ -34,16 +43,34 @@ export class EmployeeCardComponent {
    * @returns {void}
    */
   public onSubmit(): void {
-    console.log('Submitting');
-    
-    const value = this.formGroup!.value as { name: string, emailAddress: string };
-    if (this.formGroup!.valid) {
+    const value = this.formGroup!.value as { name: string, emailAddress: string, linkedDevices: Device['id'][]};
+    if (this.formGroup!.valid && this.formGroup!.dirty) {
       this.employeeChanged.emit({
-        ...value,
+        name: value.name,
+        emailAddress: value.emailAddress,
         id: this.employee.id
+      });
+      this.linkedDevicesChanged.emit({
+        employeeId: this.employee.id,
+        linkedDeviceIds: value.linkedDevices
       });
     }
     this.formGroup = null;
+  }
+
+  /**
+   * Adds a 'linked' boolean property to devices
+   * @returns {void}
+   */
+  private _buildEmployeeDeviceList() {
+    this.employeeDeviceList = null;
+    this.employeeDeviceList = this.devices
+      .map((device: Device) => {
+        return {
+          ...device,
+          linked: this.linkedDeviceIds.includes(device.id)
+        };
+      });
   }
 
   /**
@@ -82,8 +109,8 @@ export class EmployeeCardComponent {
       ),
       "linkedDevices": this.fb.control(
         {
-          value: this.employee.linkedDevices
-            .filter(device => device.linked)
+          value: this.employeeDeviceList
+            ?.filter(device => device.linked)
             .map(linkedDevice => linkedDevice.id),
           disabled: false
         }
