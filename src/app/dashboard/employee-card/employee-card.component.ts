@@ -1,19 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Device, Employee } from '@models';
+import { Device, Employee, EmployeeWithDevices, LinkedDevice } from '@models';
 
 @Component({
   selector: 'app-employee-card',
-  templateUrl: './employee-card.component.html'
+  templateUrl: './employee-card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeCardComponent {
 
-  @Input() employee!: Employee;
-  @Input() linkedDevices!: Device[];
+  @Input() employee!: EmployeeWithDevices;
   @Output() employeeChanged: EventEmitter<Partial<Employee>> = new EventEmitter();
 
   public formGroup: FormGroup|null = null;
-  public editing = false;
+  public employeeDevices: Device[]|null = null;
   public processing = false;
   
   constructor(
@@ -24,14 +25,8 @@ export class EmployeeCardComponent {
    * Controls the editing state and whether to build or destroy the form
    * @returns {void}
    */
-  public toggleEditing(): void {
-    this.editing = !this.editing;
-
-    if (this.editing) {
-      this.formGroup = this.buildForm();
-    } else {
-      this.formGroup = null;
-    }
+  public editEmployee(): void {
+    this.formGroup = this.buildForm();
   }
 
   /**
@@ -39,6 +34,8 @@ export class EmployeeCardComponent {
    * @returns {void}
    */
   public onSubmit(): void {
+    console.log('Submitting');
+    
     const value = this.formGroup!.value as { name: string, emailAddress: string };
     if (this.formGroup!.valid) {
       this.employeeChanged.emit({
@@ -46,6 +43,7 @@ export class EmployeeCardComponent {
         id: this.employee.id
       });
     }
+    this.formGroup = null;
   }
 
   /**
@@ -61,27 +59,38 @@ export class EmployeeCardComponent {
     // and easier to understand
 
     const formGroup = this.fb.group({
-      name: this.fb.control({
-        value: this.employee.name,
-        disabled: false
-      },
-      {
-        validators: [Validators.required]
-      }),
-      emailAddress: this.fb.control({
-        value: this.employee.emailAddress,
-        disabled: false
-      },
-      {
-        validators: [
-          Validators.required,
-          Validators.email
-        ]
-      })
+      "name": this.fb.control(
+        {
+          value: this.employee.name,
+          disabled: false
+        },
+        {
+          validators: [Validators.required]
+        }
+      ),
+      "emailAddress": this.fb.control(
+        {
+          value: this.employee.emailAddress,
+          disabled: false
+        },
+        {
+          validators: [
+            Validators.required,
+            Validators.email
+          ]
+        }
+      ),
+      "linkedDevices": this.fb.control(
+        {
+          value: this.employee.linkedDevices
+            .filter(device => device.linked)
+            .map(linkedDevice => linkedDevice.id),
+          disabled: false
+        }
+      ),
     });
-
+    console.log('Form Group ready.');
     return formGroup;
-
   }
 
 }

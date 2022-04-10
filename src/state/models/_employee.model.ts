@@ -4,5 +4,4 @@ export interface Employee {
   name: string;
   emailAddress: string;
   image: string;
-  deviceLinks:  number[];
 }

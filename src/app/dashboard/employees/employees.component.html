@@ -7,9 +7,8 @@
 </ng-container>
 <ng-container *ngIf="employees && employees[0]">
   <app-employee-card
-    *ngFor="let employee of employees"
+    *ngFor="let employee of employeeCards"
     [employee]="employee"
-    [linkedDevices]="getLinkedDevices(employee.id)"
     (employeeChanged)="onEmployeeChanged($event)">
   </app-employee-card>
 </ng-container>

@@ -1,69 +1,69 @@
 [
   {
-    "emailAddress": "amy.zhou@flamingo-finance.com",
+    "emailAddress": "amy.zhou@flamingo-it.com",
     "id": 1,
     "name": "Amy Zhou",
     "image": "assets/img/amy-zhou.jpg",
     "deviceLinks": [1, 6]
   },
   {
-    "emailAddress": "damien.white@flamingo-finance.com",
+    "emailAddress": "damien.white@flamingo-it.com",
     "id": 2,
     "name": "Damien White",
     "image": "assets/img/damien-white.jpg",
     "deviceLinks": [2, 6]
   },
   {
-    "emailAddress": "mark.sayle@flamingo-finance.com",
+    "emailAddress": "mark.sayle@flamingo-it.com",
     "id": 3,
     "name": "Mark Sayle",
     "image": "assets/img/mark-sayle.jpg",
     "deviceLinks": [3, 6]
   },
   {
-    "emailAddress": "svetlana.novoselova@flamingo-finance.com",
+    "emailAddress": "svetlana.novoselova@flamingo-it.com",
     "id": 4,
     "name": "Svetlana Novoselova",
     "image": "assets/img/svetlana-novoselova.jpg",
     "deviceLinks": [7, 6]
   },
   {
-    "emailAddress": "charles.roland@flamingo-finance.com",
+    "emailAddress": "charles.roland@flamingo-it.com",
     "id": 5,
     "name": "Charles Roland",
     "image": "assets/img/charles-roland.jpg",
     "deviceLinks": [1, 6, 5]
   },
   {
-    "emailAddress": "mary.edwards@flamingo-finance.com",
+    "emailAddress": "mary.edwards@flamingo-it.com",
     "id": 6,
     "name": "Mary Edwards",
     "image": "assets/img/mary-edwards.jpg",
     "deviceLinks": [2, 6]
   },
   {
-    "emailAddress": "eric.matthews@flamingo-finance.com",
+    "emailAddress": "eric.matthews@flamingo-it.com",
     "id": 7,
     "name": "Eric Matthews",
     "image": "assets/img/eric-matthews.jpg",
     "deviceLinks": [3, 6]
   },
   {
-    "emailAddress": "kirsten.joyce@flamingo-finance.com",
+    "emailAddress": "kirsten.joyce@flamingo-it.com",
     "id": 8,
     "name": "Kirsten Joyce",
     "image": "assets/img/kirsten-joyce.jpg",
     "deviceLinks": [1, 4, 6]
   },
   {
-    "emailAddress": "rihanna.mclaren@flamingo-finance.com",
+    "emailAddress": "rihanna.mclaren@flamingo-it.com",
     "id": 9,
     "name": "Rihanna McLaren",
     "image": "assets/img/rihanna-mclaren.jpg",
     "deviceLinks": [2, 4, 6]
   },
   {
-    "emailAddress": "james.pickering@flamingo-finance.com",
+    "emailAddress": "james.pickering@flamingo-it.com",
     "id": 10,
     "name": "James Pickering",
     "image": "assets/img/james-pickering.jpg",

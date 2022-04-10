@@ -1,40 +1,45 @@
 import { updateIndividualEmployee } from '@actions';
-import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Device, DeviceEmployeeLink, Employee } from '@models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Device, DeviceEmployeeLink, Employee, EmployeeWithDevices, LinkedDevice } from '@models';
 import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
+  styleUrls: ['./employees.component.scss'],
 })
-export class EmployeesComponent {
+export class EmployeesComponent implements OnInit {
 
   @Input() devices: Device[]|null = null;
   @Input() employees: Employee[]|null = null;
   @Input() deviceEmployeeLinks: DeviceEmployeeLink[]|null = null;
 
-  formGroup: FormGroup | null = null;
+  public employeeCards: EmployeeWithDevices[]|null = null;
 
   constructor(
     private store: Store
   ) { }
 
-  /**
-   * Build a filtered list of devices specific to an employee from the device-employee links data.
-   * Allows the child component to render the device details.
-   * @param {Employee['id']} employeeId
-   * @returns {Device[]}
-   */
-  public getLinkedDevices(employeeId: Employee['id']): Device[] {
-    if (!this.deviceEmployeeLinks || !this.devices) return [];
-    const linkedDevicesList: Device[] = this.deviceEmployeeLinks
-      .filter((deviceEmployeeLink: DeviceEmployeeLink) => deviceEmployeeLink.employeeId === employeeId)
-      .map(thing => { console.log(thing); return thing; })
-      .map((link: DeviceEmployeeLink) => this.devices!.filter((device: Device) => device.id === link.deviceId)[0]);
-      console.log(linkedDevicesList);
-    return linkedDevicesList;
+  ngOnInit(): void {
+    if (!this.devices || !this.employees || !this.deviceEmployeeLinks) return;
+    this.employeeCards = this.employees
+      .map((employee: Employee) => {
+        const linkedDeviceIds: Device['id'][] = this.deviceEmployeeLinks!
+        .filter(d => d.employeeId === employee.id)
+        .map(d => d.deviceId);
+  
+        const employeeDeviceList: LinkedDevice[] = this.devices!
+          .map((device: Device) => {
+            return {
+              ...device,
+              linked: linkedDeviceIds.includes(device.id)
+            };
+          });
+          return {
+            ...employee,
+            linkedDevices: employeeDeviceList
+          };
+      });
   }
 
   /**
@@ -47,6 +52,7 @@ export class EmployeesComponent {
       data: employeeDetails
     }));
   }
+
 
 
 
