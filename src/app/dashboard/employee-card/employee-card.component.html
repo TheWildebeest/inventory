@@ -1,0 +1,61 @@
+
+<mat-card class="card employee-card">
+  <form *ngIf="editing && formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <img mat-card-image [attr.src]="employee.image" [attr.alt]="'Picture of ' + employee.name">
+      <mat-card-title *ngIf="!editing">
+        {{ employee.name }}
+      </mat-card-title>
+      <mat-form-field *ngIf="editing" class="form-field" appearance="outline">
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="formGroup.controls['name'].touched && formGroup.controls['name'].invalid">
+          <span *ngIf="formGroup.controls['name'].hasError('required')">Please provide a name.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-card-subtitle>
+        <span *ngIf="!editing">Email address: <a target="_blank" href="mailto:{{employee.emailAddress}}">{{ employee.emailAddress }}</a></span>
+        <mat-form-field *ngIf="editing" class="form-field" appearance="outline">
+          <input matInput formControlName="emailAddress" required>
+          <mat-error *ngIf="formGroup.controls['emailAddress'].touched && formGroup.controls['emailAddress'].invalid">
+            <span *ngIf="formGroup.controls['emailAddress'].hasError('required')">Please provide an email address.</span>
+            <span *ngIf="formGroup.controls['emailAddress'].hasError('email')">That doesn't look like a valid email address.</span>
+          </mat-error>
+        </mat-form-field>
+      </mat-card-subtitle>
+        <mat-card-content>
+          <h3>Linked devices:</h3>
+          <ul>
+            <li *ngFor="let device of linkedDevices">
+              Device #{{device.id}} — {{device.name}}
+            </li>
+          </ul>
+
+        </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions>
+      <button *ngIf="!editing" (click)="toggleEditing()" mat-button>EDIT</button>
+      <button type="submit" *ngIf="editing" mat-button>SAVE</button>
+    </mat-card-actions>
+  </form>
+  <ng-container *ngIf="!editing">
+    <img mat-card-image [attr.src]="employee.image" [attr.alt]="'Picture of ' + employee.name">
+    <mat-card-title>
+      <span *ngIf="!editing">{{ employee.name }}</span>
+      <input type="text" *ngIf="editing" formControlName="name" />
+    </mat-card-title>
+    <mat-card-subtitle>Email:
+      <a target="_blank" href="mailto:{{employee.emailAddress}}">{{ employee.emailAddress }}</a></mat-card-subtitle>
+      <mat-card-content>
+        <h3>Linked devices:</h3>
+        <ul>
+          <li *ngFor="let device of linkedDevices">
+            Device #{{device.id}} — {{device.name}}
+          </li>
+        </ul>
+      </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions>
+      <button *ngIf="!editing" (click)="toggleEditing()" mat-button>EDIT</button>
+      <button type="submit" *ngIf="editing" mat-button>SAVE</button>
+    </mat-card-actions>
+  </ng-container>
+</mat-card>

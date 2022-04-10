@@ -1,6 +1,6 @@
 import { updateIndividualEmployee } from '@actions';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Device, Employee } from '@models';
 import { Store } from '@ngrx/store';
 
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss']
 })
-export class EmployeesComponent implements OnInit {
+export class EmployeesComponent {
 
   @Input() devices: Device[]|null = null;
   @Input() employees: Employee[]|null = null;
@@ -17,51 +17,34 @@ export class EmployeesComponent implements OnInit {
   formGroup: FormGroup | null = null;
 
   constructor(
-    private fb: FormBuilder,
     private store: Store
   ) { }
 
-  ngOnInit(): void {
+  /**
+   * Build a list of device objects from an array of device ids.
+   * Allows the child component to render the device details.
+   * @param {Device['id'][]} deviceIds
+   * @returns {Device[]}
+   */
+  public getDeviceDetails(deviceIds: Device['id'][]): Device[] {
+    if (!this.devices) return [];
+    const deviceList: Device[] = deviceIds.map((id: Device['id']) => {
+      return this.devices!.filter((device: Device) => device.id === id)[0];
+    });
+    return deviceList;
   }
 
-  public toggleEditing(id: Employee['id']) {
-    const employee = this.employees?.find(e => e.id === id);
-    if (employee) {
-      employee.editing = !employee.editing;
-    }
-
-    if (employee?.editing) {
-      this.setupForm(employee)
-    }
+  /**
+   * Dispatches an action to update an employee's details
+   * @param {Partial<Employee>} employeeDetails
+   * @returns {void}
+   */
+  public onEmployeeChanged(employeeDetails: Partial<Employee>): void {
+    this.store.dispatch(updateIndividualEmployee({
+      data: employeeDetails
+    }));
   }
 
-  getDeviceDetails(id: Device['id']) {
-    return `Device #${id} - ${this.devices?.find(d => d.id === id)?.name}` 
-  }
 
-  onSubmit() {
-    const value = this.formGroup?.value as { name: string, emailAddress: string }
-    let employee = this.employees?.find(e => e.editing);
-    
-    if (this.formGroup?.valid && employee) {
-      this.store.dispatch(updateIndividualEmployee({
-        data: {
-          ...value,
-          id: employee.id} 
-      }))
-      employee.editing = false;
-    } else return
-  }
-
-  setupForm(employee: Employee) {
-
-    const formGroup = this.fb.group({
-      name: this.fb.control({ value: employee.name, disabled: false }, { validators: [Validators.required]}),
-      emailAddress: this.fb.control({ value: employee.emailAddress, disabled: false}, { validators: [Validators.required, Validators.email] })
-    })
-
-    this.formGroup = formGroup;
-
-  }
 
 }
