@@ -1,6 +1,6 @@
-import { updateEmployees } from '@actions';
+import { updateIndividualEmployee } from '@actions';
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Device, Employee } from '@models';
 import { Store } from '@ngrx/store';
 
@@ -40,19 +40,24 @@ export class EmployeesComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.formGroup?.value
+    const value = this.formGroup?.value as { name: string, emailAddress: string }
     let employee = this.employees?.find(e => e.editing);
     
-    if (value) {
-      this.store.dispatch(updateEmployees({ data: value }))
-    }
+    if (this.formGroup?.valid && employee) {
+      this.store.dispatch(updateIndividualEmployee({
+        data: {
+          ...value,
+          id: employee.id} 
+      }))
+      employee.editing = false;
+    } else return
   }
 
   setupForm(employee: Employee) {
 
     const formGroup = this.fb.group({
-      'name': this.fb.control(employee.name),
-      'emailAddress': this.fb.control(employee.emailAddress)
+      name: this.fb.control({ value: employee.name, disabled: false }, { validators: [Validators.required]}),
+      emailAddress: this.fb.control({ value: employee.emailAddress, disabled: false}, { validators: [Validators.required, Validators.email] })
     })
 
     this.formGroup = formGroup;

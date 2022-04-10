@@ -12,12 +12,25 @@
     <form *ngIf="employee.editing && formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <mat-card class="card employee-card">
         <img mat-card-image [attr.src]="employee.image" [attr.alt]="'Picture of ' + employee.name">
-        <mat-card-title>
-          <span *ngIf="!employee.editing">{{ employee.name }}</span>
-          <input type="text" *ngIf="employee.editing" formControlName="name" />
+        <mat-card-title *ngIf="!employee.editing">
+          {{ employee.name }}
         </mat-card-title>
-        <mat-card-subtitle>Email: 
-          <a target="_blank" href="mailto:{{employee.emailAddress}}">{{ employee.emailAddress }}</a></mat-card-subtitle>
+        <mat-form-field *ngIf="employee.editing" class="form-field" appearance="outline">
+          <input matInput formControlName="name" required>
+          <mat-error *ngIf="formGroup.controls['name'].touched && formGroup.controls['name'].invalid">
+            <span *ngIf="formGroup.controls['name'].hasError('required')">Please provide a name.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-card-subtitle>
+          <span *ngIf="!employee.editing">Email address: <a target="_blank" href="mailto:{{employee.emailAddress}}">{{ employee.emailAddress }}</a></span>
+          <mat-form-field *ngIf="employee.editing" class="form-field" appearance="outline">
+            <input matInput formControlName="emailAddress" required>
+            <mat-error *ngIf="formGroup.controls['emailAddress'].touched && formGroup.controls['emailAddress'].invalid">
+              <span *ngIf="formGroup.controls['emailAddress'].hasError('required')">Please provide an email address.</span>
+              <span *ngIf="formGroup.controls['emailAddress'].hasError('email')">That doesn't look like a valid email address.</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-card-subtitle>
           <mat-card-content>
             <h3>Linked devices:</h3>
             <ul>
