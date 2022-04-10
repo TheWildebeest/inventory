@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "employeeId": 1,
+    "deviceId": 1
+  },
+  {
+    "id": 2,
+    "employeeId": 1,
+    "deviceId": 6
+  },
+  {
+    "id": 3,
+    "employeeId": 2,
+    "deviceId": 2
+  },
+  {
+    "id": 4,
+    "employeeId": 2,
+    "deviceId": 6
+  },
+  {
+    "id": 5,
+    "employeeId": 3,
+    "deviceId": 3
+  },
+  {
+    "id": 6,
+    "employeeId": 3,
+    "deviceId": 6
+  },
+  {
+    "id": 7,
+    "employeeId": 4,
+    "deviceId": 6
+  },
+  {
+    "id": 8,
+    "employeeId": 4,
+    "deviceId": 7
+  },
+  {
+    "id": 9,
+    "employeeId": 5,
+    "deviceId": 1
+  },
+  {
+    "id": 10,
+    "employeeId": 5,
+    "deviceId": 5
+  },
+  {
+    "id": 11,
+    "employeeId": 5,
+    "deviceId": 6
+  },
+  {
+    "id": 12,
+    "employeeId": 6,
+    "deviceId": 2
+  },
+  {
+    "id": 13,
+    "employeeId": 6,
+    "deviceId": 6
+  },
+  {
+    "id": 14,
+    "employeeId": 7,
+    "deviceId": 3
+  },
+  {
+    "id": 15,
+    "employeeId": 7,
+    "deviceId": 6
+  },
+  {
+    "id": 16,
+    "employeeId": 8,
+    "deviceId": 1
+  },
+  {
+    "id": 17,
+    "employeeId": 8,
+    "deviceId": 4
+  },
+  {
+    "id": 18,
+    "employeeId": 8,
+    "deviceId": 6
+  },
+  {
+    "id": 19,
+    "employeeId": 9,
+    "deviceId": 2
+  },
+  {
+    "id": 20,
+    "employeeId": 9,
+    "deviceId": 4
+  },
+  {
+    "id": 21,
+    "employeeId": 9,
+    "deviceId": 6 
+  },
+  {
+    "id": 22,
+    "employeeId": 10,
+    "deviceId": 3
+  },
+  {
+    "id": 22,
+    "employeeId": 10,
+    "deviceId": 4
+  },
+  {
+    "id": 22,
+    "employeeId": 10,
+    "deviceId": 6
+  }
+]

@@ -9,7 +9,7 @@
   <app-employee-card
     *ngFor="let employee of employees"
     [employee]="employee"
-    [linkedDevices]="getDeviceDetails(employee.deviceLinks)"
+    [linkedDevices]="getLinkedDevices(employee.id)"
     (employeeChanged)="onEmployeeChanged($event)">
   </app-employee-card>
 </ng-container>

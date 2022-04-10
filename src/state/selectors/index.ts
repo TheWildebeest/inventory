@@ -1,9 +1,10 @@
 import { createFeatureSelector, createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
-import { AppState, NavBarState, EmployeesState, DevicesState } from '@models';
+import { NavBarState, EmployeesState, DevicesState, DeviceEmployeeLinksState } from '@models';
 
-export const selectNavBar = createFeatureSelector<NavBarState>('navBarState')
+export const selectNavBar = createFeatureSelector<NavBarState>('navBarState');
 export const selectEmployees = createFeatureSelector<EmployeesState>('employeesState');
-export const selectDevices = createFeatureSelector<DevicesState>('devicesState')
+export const selectDevices = createFeatureSelector<DevicesState>('devicesState');
+export const selectDeviceEmployeeLinks = createFeatureSelector<DeviceEmployeeLinksState>('deviceEmployeeLinksState');
 
 // Nav bar selectors
 
@@ -65,4 +66,27 @@ export const selectDevicesLoading = createSelector(
   selectDevices,
   (state: DevicesState) => state.loading
 );
+
+// Devices-Employee Links selectors
+
+export const selectDeviceEmployeeLinksState = createSelector(
+  selectDeviceEmployeeLinks,
+  (state: DeviceEmployeeLinksState) => state
+);
+
+export const selectDeviceEmployeeLinksData = createSelector(
+  selectDeviceEmployeeLinks,
+  (state: DeviceEmployeeLinksState) => state.data
+);
+
+export const selectDeviceEmployeeLinksLoaded = createSelector(
+  selectDeviceEmployeeLinks,
+  (state: DeviceEmployeeLinksState) => state.loaded
+);
+
+export const selectDeviceEmployeeLinksLoading = createSelector(
+  selectDeviceEmployeeLinks,
+  (state: DeviceEmployeeLinksState) => state.loading
+);
+
 

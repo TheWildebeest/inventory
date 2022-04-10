@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
-import { delay, filter, map, Observable, of } from "rxjs";
+import { delay, map, Observable, of } from "rxjs";
 import { Device, Employee } from "@models";
 import { HttpClient } from "@angular/common/http";
+import { DeviceEmployeeLink } from "@models/_device-employee-link.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,33 +16,37 @@ export class DataService {
 
   public getDevices(): Observable<Device[]> {
     return this.http.get<Device[]>('/assets/data/devices.json')
-    .pipe(delay(Math.random() * 1000 + 1400))
+    .pipe(delay(Math.random() * 1000 + 1400));
   }
 
-      
+
   public getEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>('/assets/data/employees.json')
-      .pipe(delay(Math.random() * 1000 + 1400))
+      .pipe(delay(Math.random() * 1000 + 1400));
   }
 
-  public updateIndividualEmployee(updatedEmployeeData: Partial<Employee>, allEmployees: Employee[]|null): Observable<{ data: Employee|null} > {
-    console.log('dataService: updateIndividualEmployee');
+  public getDeviceEmployeeLinks(): Observable<DeviceEmployeeLink[]> {
+    return this.http.get<DeviceEmployeeLink[]>('/assets/data/device-employee-links.json')
+      .pipe(delay(Math.random() * 1000 + 1400));
+  }
+
+  public updateIndividualEmployee(updatedEmployeeData: Partial<Employee>, allEmployees: Employee[]|null): Observable<{ data: Employee|null}> {
+
     return of(true).pipe(
       delay(Math.random() * 700 + 1400),
       map(() => {
-        console.log('delay successful');
-        const originalEmployee = allEmployees?.find((e => e.id === updatedEmployeeData.id))
+        const originalEmployee = allEmployees?.find((e => e.id === updatedEmployeeData.id));
         if (originalEmployee) {
           const updatedEmployee: Employee = {
             ...originalEmployee,
             ...updatedEmployeeData
           };
-          return { data: updatedEmployee }
+          return { data: updatedEmployee };
         } else {
-          return { data: null }
+          return { data: null };
         }
       })
-    )
+    );
   }
 
     public updateIndividualDevice(updatedDeviceData: Partial<Device>, allDevices: Device[]|null): Observable<{ data: Device|null} > {
@@ -49,19 +54,28 @@ export class DataService {
     return of(true).pipe(
       delay(Math.random() * 700 + 1400),
       map(() => {
-        console.log('delay successful');
-        const originalDevice = allDevices?.find((e => e.id === updatedDeviceData.id))
+        const originalDevice = allDevices?.find((e => e.id === updatedDeviceData.id));
         if (originalDevice) {
           const updatedDevice: Device = {
             ...originalDevice,
             ...updatedDeviceData
           };
-          return { data: updatedDevice }
+          return { data: updatedDevice };
         } else {
-          return { data: null }
+          return { data: null };
         }
       })
-    )
+    );
+  }
+
+  public updateIndividualDeviceEmployeeLink(updatedDeviceEmployeeLinkData: DeviceEmployeeLink): Observable<{ data: DeviceEmployeeLink }> {
+
+    return of(true).pipe(
+      delay(Math.random() * 700 + 1400),
+      map(() => {
+        return { data: updatedDeviceEmployeeLinkData };
+      })
+    );
   }
 
 }

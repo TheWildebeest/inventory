@@ -1,9 +1,11 @@
 import { Device } from './_device.model';
+import { DeviceEmployeeLink } from './_device-employee-link.model';
 import { Employee } from './_employee.model';
 
 export interface AppState {
   navBarState: NavBarState;
   employeesState: EmployeesState;
+  deviceEmployeeLinksState: DeviceEmployeeLinksState
   devicesState: DevicesState;
 } 
 
@@ -24,4 +26,10 @@ export interface DevicesState {
   loaded: boolean,
   loading: boolean,
   data: Device[] | null; 
+}
+
+export interface DeviceEmployeeLinksState {
+  loaded: boolean,
+  loading: boolean,
+  data: DeviceEmployeeLink[] | null; 
 }
