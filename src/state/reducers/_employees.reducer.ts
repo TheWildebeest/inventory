@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadEmployees, loadEmployeesSuccess, loadEmployeesFail, clearEmployees, updateEmployees, updateEmployeesFail, updateEmployeesSuccess } from '@actions';
+import { loadEmployees, loadEmployeesSuccess, loadEmployeesFail, clearEmployees, updateIndividualEmployee, updateIndividualEmployeeFail, updateIndividualEmployeeSuccess } from '@actions';
 import { Employee, EmployeesState } from '@models';
 
 export const initialState: EmployeesState = {
@@ -34,7 +34,7 @@ export const employeesReducer = createReducer(
     };
     return newState;
   }),
-  on(updateEmployees, (_state: EmployeesState, _props: { data: Partial<Employee> }): EmployeesState => {
+  on(updateIndividualEmployee, (_state: EmployeesState, _props: { data: Partial<Employee> }): EmployeesState => {
     const newState = {
       loading: true,
       loaded: false,
@@ -42,15 +42,23 @@ export const employeesReducer = createReducer(
     };
     return newState;
   }),
-  on(updateEmployeesSuccess, (_state: EmployeesState, props: { data: Employee[] }): EmployeesState => {
+  on(updateIndividualEmployeeSuccess, (state: EmployeesState, props: { data: Employee }): EmployeesState => {
+
+    const newEmployeesList: Employee[] = state.data!
+      .map((e: Employee) => {
+        if (e.id === props.data.id) {
+          return props.data;
+        }
+        return e;
+      })
     const newState = {
       loading: false,
       loaded: true,
-      data: [ ...props.data ]
+      data: newEmployeesList
     };
     return newState;
   }),
-  on(updateEmployeesFail, (_state: EmployeesState): EmployeesState => {
+  on(updateIndividualEmployeeFail, (_state: EmployeesState): EmployeesState => {
     const newState = {
       loading: true,
       loaded: false,
