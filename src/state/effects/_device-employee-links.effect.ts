@@ -54,9 +54,12 @@ export class DeviceEmployeeLinksEffects {
   });
 
   removeDeviceEmployeeLink$ = createEffect(() => {
+    console.log('Remove device-employee link effect triggered.');
+    
     return this.actions$.pipe(
       ofType(REMOVE_DEVICE_EMPLOYEE_LINK),
       mergeMap((action: RemoveDeviceEmployeeLinkAction) => {
+        console.log(action.data);
         return this.dataService.removeDeviceEmployeeLink(action.data)
           .pipe(
             map((response: { data: { deleted: boolean } }) => {

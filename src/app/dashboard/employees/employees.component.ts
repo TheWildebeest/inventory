@@ -14,8 +14,6 @@ export class EmployeesComponent {
   @Input() employees: Employee[]|null = null;
   @Input() deviceEmployeeLinks: DeviceEmployeeLink[]|null = null;
 
-  public employeeCards: EmployeeWithDevices[]|null = null;
-
   constructor(
     private store: Store
   ) { }
@@ -36,9 +34,9 @@ export class EmployeesComponent {
    * @param {{ employeeId: Employee['id'], linkedDeviceIds: Device['id'][]}} _event 
    */
   public onLinkedDevicesChanged(_event: { employeeId: Employee['id'], linkedDeviceIds: Device['id'][]}) {
-    // Get the original list of device-employee links for this employee.
     const linksToDelete: DeviceEmployeeLink['id'][] = [];
     const linksToAdd: { deviceId: Device['id'], employeeId: Employee['id'] }[] = [];
+    // Get the original list of device-employee links for this employee.
     const oldEmployeeDeviceList = this.deviceEmployeeLinks
       ?.filter((link: DeviceEmployeeLink) => link.employeeId === _event.employeeId);
 
@@ -50,6 +48,7 @@ export class EmployeesComponent {
     // Loop through the old list and see if anything has been deleted in the new list
     oldEmployeeDeviceList?.forEach((link: DeviceEmployeeLink) => {
       if (!_event.linkedDeviceIds.includes(link.deviceId)) {
+        console.log(link);
         linksToDelete.push(link.id);
       }
     });

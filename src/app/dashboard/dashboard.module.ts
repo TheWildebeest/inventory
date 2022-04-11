@@ -20,6 +20,7 @@ import { PanelComponent } from './panel/panel.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { DevicesComponent } from './devices/devices.component';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
+import { DeviceCardComponent } from './device-card/device-card.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EmployeeCardComponent } from './employee-card/employee-card.component';
     PanelComponent,
     EmployeesComponent,
     DevicesComponent,
-    EmployeeCardComponent
+    EmployeeCardComponent,
+    DeviceCardComponent
   ],
   imports: [
     //Core

@@ -19,8 +19,6 @@ export class EmployeeCardComponent implements OnInit {
 
   public employeeDeviceList: LinkedDevice[]|null = null;
   public formGroup: FormGroup|null = null;
-  public employeeDevices: Device[]|null = null;
-  public processing = false;
   
   constructor(
     private fb: FormBuilder
@@ -63,7 +61,6 @@ export class EmployeeCardComponent implements OnInit {
    * @returns {void}
    */
   private _buildEmployeeDeviceList() {
-    this.employeeDeviceList = null;
     this.employeeDeviceList = this.devices
       .map((device: Device) => {
         return {

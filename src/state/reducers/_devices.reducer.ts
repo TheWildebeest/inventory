@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadDevices, loadDevicesSuccess, loadDevicesFail, clearDevices } from '@actions';
+import { loadDevices, loadDevicesSuccess, loadDevicesFail, clearDevices, updateIndividualDevice, updateIndividualDeviceSuccess } from '@actions';
 import { DevicesState, Device } from '@models';
 
 export const initialState: DevicesState = {
@@ -37,4 +37,25 @@ export const devicesReducer = createReducer(
   on(clearDevices, (_state: DevicesState): DevicesState => {
     return initialState;
   }),
+  on(updateIndividualDevice, (state: DevicesState, _props: { data: Partial<Device> }): DevicesState => {
+    return {
+      loading: true,
+      loaded: false,
+      data: state.data? [ ...state.data ]: null
+    };
+  }),
+  on(updateIndividualDeviceSuccess, (state: DevicesState, props: { data: Device }): DevicesState => {
+    const newDevicesList: Device[] = state.data!
+      .map((d: Device) => {
+        if (d.id === props.data.id) {
+          return props.data;
+        }
+        return d;
+      });
+    return {
+      loading: true,
+      loaded: false,
+      data: newDevicesList
+    };
+  })
 );

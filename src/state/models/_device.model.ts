@@ -1,13 +1,10 @@
-export interface InventoryItem {
+export interface Device {
+  id: number;
   sku: string;
   type: DeviceTypes;
   description: string;
   image: string;
   name: string;
-}
-
-export interface Device extends InventoryItem {
-  id: number;
 }
 
 export enum DeviceTypes {

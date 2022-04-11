@@ -1,0 +1,63 @@
+
+<mat-card class="card employee-card">
+  <form *ngIf="formGroup && linkedEmployeeList" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="formGroup.controls['name'].touched && formGroup.controls['name'].invalid">
+        <span *ngIf="formGroup.controls['name'].hasError('required')">Please provide a name.</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" required>
+      <mat-error *ngIf="formGroup.controls['description'].touched && formGroup.controls['description'].invalid">
+        <span *ngIf="formGroup.controls['description'].hasError('required')">Please provide a description for this device.</span>
+      </mat-error>
+    </mat-form-field>
+    <img mat-card-image [attr.src]="device.image" [attr.alt]="'Picture of ' + device.name">
+    <mat-card-content>
+      <h3>Linked employees:</h3>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-select formControlName="linkedEmployees" multiple>
+          <mat-option
+            *ngFor="let employee of linkedEmployeeList"
+            [value]="employee.id">
+            {{ employee.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- {{ formGroup.value | json }} -->
+      <mat-select></mat-select>
+    </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions>
+      <button type="submit" mat-button>SAVE</button>
+    </mat-card-actions>
+  </form>
+
+  <ng-container *ngIf="!formGroup || !linkedEmployeeList">
+    <mat-card-header>
+      <mat-card-title>{{ device.name }}</mat-card-title>
+      <mat-card-subtitle>{{ device.description }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [attr.src]="device.image" [attr.alt]="'Picture of ' + device.name">
+    <mat-card-content>
+      <h3>Linked employees:</h3>
+      <ul>
+        <ng-container *ngFor="let employee of linkedEmployeeList">
+          <li *ngIf="employee.linked">
+            {{employee.name}}
+          </li>
+        </ng-container>
+      </ul>
+    </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions>
+      <button (click)="editDevice()" mat-button>EDIT</button>
+    </mat-card-actions>
+  </ng-container>
+</mat-card>
+
+

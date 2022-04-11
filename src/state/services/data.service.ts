@@ -9,7 +9,7 @@ import { DeviceEmployeeLink } from "@models/_device-employee-link.model";
 })
 export class DataService {
 
-  private _idCount = 11;
+  private _idCount = 23;
 
 
   constructor(
@@ -51,7 +51,7 @@ export class DataService {
     );
   }
 
-    public updateIndividualDevice(updatedDeviceData: Partial<Device>, allDevices: Device[]|null): Observable<{ data: Device|null} > {
+  public updateIndividualDevice(updatedDeviceData: Partial<Device>, allDevices: Device[]|null): Observable<{ data: Device|null} > {
 
     return of(true).pipe(
       delay(Math.random() * 700 + 1400),
@@ -72,6 +72,9 @@ export class DataService {
 
   public addNewDeviceEmployeeLink(newLinkData: { employeeId: Employee['id'], deviceId: Device['id'] }): Observable<{ data: DeviceEmployeeLink }> {
 
+    console.log('Adding new link');
+    
+
     const id = this._idCount;
     this._idCount ++;
     return of(true).pipe(
@@ -82,8 +85,8 @@ export class DataService {
     );
   }
 
-  public removeDeviceEmployeeLink(linkId: DeviceEmployeeLink['id']): Observable<{ data: {deleted: boolean } }> {
-    console.log('Deleting Device-Employee Link with ID #', linkId);
+  public removeDeviceEmployeeLink(linkId: DeviceEmployeeLink['id']): Observable<{ data: { deleted: boolean } }> {
+    console.log('Deleting Device-Employee Link with Link ID #', linkId);
 
     return of(true).pipe(
       delay(Math.random() * 700 + 1400),

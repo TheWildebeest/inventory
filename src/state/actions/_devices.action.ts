@@ -28,4 +28,27 @@ export type LoadDevicesAction = TypedAction<typeof LOAD_DEVICES>;
 export type LoadDevicesSuccessAction = { data: Employee[] } & TypedAction<typeof LOAD_DEVICES_SUCCESS>;
 export type LoadDevicesFailAction = TypedAction<typeof LOAD_DEVICES_FAIL>;
 
+// Update
+
+export const UPDATE_INDIVIDUAL_DEVICE = '[Devices] Update individual device';
+export const UPDATE_INDIVIDUAL_DEVICE_SUCCESS = '[Devices] Update individual device success';
+export const UPDATE_INDIVIDUAL_DEVICE_FAIL = '[Devices] Update individual device fail';
+
+export const updateIndividualDevice = createAction(
+  UPDATE_INDIVIDUAL_DEVICE,
+  props<{ data: Partial<Device> }>()
+);
+
+export const updateIndividualDeviceSuccess = createAction(
+  UPDATE_INDIVIDUAL_DEVICE_SUCCESS,
+  props<{ data: Device }>()
+);
+
+export const updateIndividualDeviceFail = createAction(
+  UPDATE_INDIVIDUAL_DEVICE_FAIL
+);
+
+export type UpdateIndividualDeviceAction = { data: Partial<Device> } & TypedAction<typeof UPDATE_INDIVIDUAL_DEVICE>;
+export type UpdateIndividualDeviceSuccessAction = { data: Device } & TypedAction<typeof UPDATE_INDIVIDUAL_DEVICE_SUCCESS>;
+export type UpdateIndividualDeviceFailAction = TypedAction<typeof UPDATE_INDIVIDUAL_DEVICE_FAIL>;
 
