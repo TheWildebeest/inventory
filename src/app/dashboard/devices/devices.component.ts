@@ -81,6 +81,7 @@ export class DevicesComponent {
     // Loop through both lists and dispatch add/remove events
     if (linksToDelete.length > 0) {
       linksToDelete.forEach((id: DeviceEmployeeLink['id']) => {
+        console.log('ID: ', id);
         this.store.dispatch(removeDeviceEmployeeLink({ data: id }));
       });
     }
